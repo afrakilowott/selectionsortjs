@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selection Sort</title>
+    <style>
+        /* Your CSS styles here */
+    </style>
+</head>
+<body>
+    <h1>Selection Sort</h1>
+
+    <form>
+        <label for="numbers">Enter a list of numbers (comma-separated):</label>
+        <input type="text" id="numbers" required>
+        <input type="button" value="Sort" onclick="sortNumbers()">
+    </form>
+
+    <div class="result">
+        <p class="original">Original numbers: <span id="originalNumbers"></span></p>
+        <p class="sorted">Sorted numbers: <span id="sortedNumbers"></span></p>
+    </div>
+
+    <script>
+        function sortNumbers() {
+            const inputElement = document.getElementById("numbers");
+            const originalNumbersElement = document.getElementById("originalNumbers");
+            const sortedNumbersElement = document.getElementById("sortedNumbers");
+
+            const inputNumbers = inputElement.value;
+            const numbersArray = inputNumbers.split(",").map(item => parseInt(item.trim()));
+
+            if (numbersArray.length > 0) {
+                originalNumbersElement.textContent = numbersArray.join(", ");
+
+                for (let i = 0; i < numbersArray.length - 1; i++) {
+                    let minIndex = i;
+
+                    for (let j = i + 1; j < numbersArray.length; j++) {
+                        if (numbersArray[j] < numbersArray[minIndex]) {
+                            minIndex = j;
+                        }
+                    }
+
+                    if (minIndex !== i) {
+                        const temp = numbersArray[i];
+                        numbersArray[i] = numbersArray[minIndex];
+                        numbersArray[minIndex] = temp;
+                    }
+                }
+
+                sortedNumbersElement.textContent = numbersArray.join(", ");
+            } else {
+                originalNumbersElement.textContent = "";
+                sortedNumbersElement.textContent = "Please enter a valid list of numbers.";
+            }
+        }
+    </script>
+</body>
+</html>
